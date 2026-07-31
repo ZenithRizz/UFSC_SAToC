@@ -114,7 +114,7 @@ memory-mapped register blocks on one AXI bus":
 
 ## 5. Address map
 
-Full detail in `satoc_axi_memory_map.md` (Phase 2 deliverable); summary:
+Full detail in `satoc_axi_memory_map.md` (discussed as a phase 2 deliverable);
 
 | Base | Subsystem |
 |---|---|
