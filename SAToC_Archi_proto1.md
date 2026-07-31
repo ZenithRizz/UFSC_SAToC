@@ -1,6 +1,6 @@
 # SAToC Architecture Proposal
 
-Assignment task addressed: *"Propose a Satellite-on-a-Chip architecture showing
+Assignment task: *"Propose a Satellite-on-a-Chip architecture showing
 how the OBDH, TT&C, EPS, memory resources, and the RISC-V processor are
 integrated within the FPGA"* and *"Develop a detailed block diagram of the
 proposed architecture."*
@@ -8,7 +8,7 @@ proposed architecture."*
 ## 1. Platform
 
 **Xilinx Zynq XC7Z020 (Digilent PYNQ-Z2)** — available at both LNMIIT and
-SpaceLab, satisfying the assignment's preference for a shared development
+SpaceLab(not confirmed), satisfying the assignment's preference for a shared development
 platform. The design uses the **programmable logic (PL) only**; the Zynq's
 hardened ARM processing system (PS7) is deliberately left unused so that the
 entire OBC is a soft RISC-V core implemented in fabric — this is what makes it
