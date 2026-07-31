@@ -84,9 +84,6 @@ flowchart TB
     PERIPH --> EXTSENS
 ```
 
-(Rendered as an SVG in the chat above; this Mermaid version is the one that
-displays directly on GitHub, per the assignment's repository deliverable.)
-
 ## 4. Data flow (firmware's view)
 
 This mirrors the GOLDS-UFSC CDR's documented OBDH/EPS/TTC operational cycle,
