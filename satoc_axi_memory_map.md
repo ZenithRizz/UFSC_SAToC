@@ -5,19 +5,19 @@
 NEORV32's internal address decoder claims three fixed regions: IMEM at
 `IMEM_BASE` (default `0x00000000`), DMEM at `DMEM_BASE` (default `0x80000000`),
 and a small internal I/O region for the built-in peripherals (UART0, GPIO,
-CLINT, bootloader ROM, SYSINFO, etc.). **Every address that isn't claimed by
-one of those is automatically routed out over XBUS** — that's the entire
-point of XBUS: it's the CPU's "everything else" bus, bridged to AXI4 by
-`xbus2axi4_bridge.vhd` inside the packaged `neorv32_vivado_ip` IP.
+CLINT, bootloader ROM, SYSINFO, etc.). Every address that isn't claimed by
+one of those gets automatically routed out over XBUS. That's really the
+whole point of XBUS: it's the CPU's "everything else" bus, bridged to AXI4
+by `xbus2axi4_bridge.vhd` inside the packaged `neorv32_vivado_ip` IP.
 
 We get to choose where our own peripherals live inside that leftover space.
-This map reserves a clean 1 MiB window starting at `0x9000_0000` — comfortably
-clear of DMEM (`0x8000_0000` + a few KiB) and far from the high internal I/O
-region — and gives every subsystem controller its own 64 KiB slot so the AXI
-SmartConnect's address decoder has simple, non-overlapping ranges to work
-with (64 KiB is far more than any of these register files actually need; it's
-sized for decode simplicity and future headroom, not because each peripheral
-is that large).
+This map reserves a clean 1 MiB window starting at `0x9000_0000`, comfortably
+clear of DMEM (`0x8000_0000` plus a few KiB) and far from the high internal
+I/O region, and gives every subsystem controller its own 64 KiB slot so the
+AXI SmartConnect's address decoder has simple, non-overlapping ranges to
+work with. 64 KiB is far more than any of these register files actually
+need; it's sized for decode simplicity and future headroom, not because
+each peripheral is that large.
 
 ## Full map
 
@@ -32,14 +32,14 @@ is that large).
 | `0x9006_0000` | 64 KiB | I2C controller (generic, for sensors/expansion) | `satoc_i2c_v1_0` | Phase 3 |
 | `0x9007_0000` | 64 KiB | CAN 2.0B controller | `satoc_can_v1_0` | Phase 7 |
 | `0x9008_0000` | 64 KiB | SpaceWire controller (DS encode/decode) | `satoc_spw_v1_0` | Phase 7 |
-| `0x9009_0000`–`0x900E_FFFF` | 384 KiB | **Reserved** — payload / future expansion | — | — |
-| `0x900F_0000` | 64 KiB | Phase 2 AXI bus-routing test peripheral (temporary — remove from the design once Phase 3 lands) | `satoc_bus_test_v1_0` | Phase 2 |
+| `0x9009_0000`-`0x900E_FFFF` | 384 KiB | Reserved for payload / future expansion | - | - |
+| `0x900F_0000` | 64 KiB | Phase 2 AXI bus-routing test peripheral (temporary, remove from the design once Phase 3 lands) | `satoc_bus_test_v1_0` | Phase 2 |
 
 ## Phase 2 test peripheral register layout
 
-`satoc_bus_test_v1_0` at base `0x900F_0000`, 4 word-aligned 32-bit read/write
-registers, no side effects (pure scratch storage — good for proving the bus
-works before any real peripheral logic exists):
+`satoc_bus_test_v1_0` sits at base `0x900F_0000` and has 4 word-aligned
+32-bit read/write registers with no side effects. It's pure scratch storage,
+good for proving the bus works before any real peripheral logic exists:
 
 | Offset | Register | Access |
 |---|---|---|
@@ -50,8 +50,8 @@ works before any real peripheral logic exists):
 
 ## RS-485 / RS-232 / SPI / I2C / GPIO physical routing note
 
-The controllers at `0x9003_0000`–`0x9006_0000` are the AXI-side register
+The controllers at `0x9003_0000`-`0x9006_0000` are the AXI-side register
 interfaces only. Which physical FPGA pins they drive (PMOD/Arduino headers
-on the PYNQ-Z2) will be assigned in their XDC constraints when each is built
-in Phase 3 — this document only fixes the *bus-side* addresses so firmware
+on the PYNQ-Z2) gets assigned in their XDC constraints when each is built in
+Phase 3. This document only fixes the *bus-side* addresses, so firmware
 written now (like the Phase 2 bus test) won't need to change later.
