@@ -15,7 +15,7 @@
 - **Why not Wishbone or a custom point-to-point bus?**
 
 - **Toolchain Integration:** Staying strictly within AXI enables Vivado’s automated Address Editor, memory-map generation, and AXI SmartConnect crossbar generation.
-- **Full AXI4 vs. AXI4-Lite Separation:** The CPU uses full AXI4 to allow multi-word burst transactions (necessary for high-speed block transfers like Flash memory access). Subsystems (EPS, TT&C, OBDH) only require basic Command/Status registers, so implementing full AXI4 burst logic inside those modules would waste gate count with zero functional gain.
+- **Full AXI4 vs. AXI4-Lite Separation:** The CPU uses full AXI4 to allow multi-word burst transactions (necessary for high speed block transfers like Flash memory access). Subsystems (EPS, TT&C, OBDH) only require basic Command/Status registers, so implementing full AXI4 burst logic inside those modules would waste gate count with zero functional gain.
 
 ## 3. CPU Interface: Native Bus vs. XBUS-to-AXI4 Bridge
 
@@ -26,7 +26,7 @@
 
 ## 4. Memory Layout: Tightly-Coupled (TCM) vs. Shared AXI Memory
 
-- **Decision:** Keep Instruction Memory (IMEM) and Data Memory (DMEM) tightly coupled to the CPU's internal XBUS — outside the main AXI interconnect.
+- **Decision:** Keep Instruction Memory (IMEM) and Data Memory (DMEM) tightly coupled to the CPU's internal XBUS , outside the main AXI interconnect.
 - **Why couldn't IMEM/DMEM sit on the AXI bus alongside peripherals?**
 
 - **Real-Time Determinism:** Instruction fetches happen on almost every clock cycle. If program memory reads had to contend with peripheral bus arbitration (for example, EPS reading an ADC or TT&C handling a packet burst), instruction execution timing would stall dynamically, violating deterministic execution guarantees required for spaceflight watchdogs.
