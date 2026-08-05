@@ -14,9 +14,9 @@ Target platform: Xilinx Zynq XC7Z020 (PYNQ-Z2). Toolchain: Vivado + RISC-V GCC.
 | 7 | CAN 2.0B and SpaceWire controllers, each with a loopback testbench |
 | 8 | System integration: final top-level tying every subsystem together, system-level testbench, full hardware demo on the PYNQ-Z2 |
 
-## GitHub repository
 ## Documentation deliverables
-Tracking these against the assignment's documentation requirements:
+
+Here's where things stand against the assignment's documentation requirements:
 
 | Document | Status |
 |---|---|
@@ -40,7 +40,9 @@ Tracking these against the assignment's documentation requirements:
 
 ## Open items to resolve before Phase 4
 
-Carried over from the architecture review — worth a professor check-in first:
-interrupt-driven vs. polled peripheral servicing, bus-timeout/error-response
-policy, target EPS ADC part (for I2C clock-stretching compatibility), and
-SpaceWire's physical-layer scope given the PYNQ-Z2's single-ended headers.
+A few things carried over from the architecture review that are worth a
+professor check-in before Phase 4 starts: interrupt-driven vs. polled
+peripheral servicing, bus-timeout/error-response policy, the target EPS ADC
+part (matters for I2C clock-stretching compatibility), and how much of
+SpaceWire's physical layer to actually implement given the PYNQ-Z2's
+single-ended headers.
