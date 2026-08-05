@@ -1,4 +1,4 @@
-# SAToC — Satellite-on-a-Chip
+# SAToC — Satellite-on-a-Chip -Spacelab UFSC-LNMIIT internship 
 
 Satellite-on-a-Chip (SAToC) consolidates a nanosatellite's OBDH, TT&C, and EPS
 service-platform functions, plus their communication interfaces, onto a
@@ -17,4 +17,4 @@ logic only, no PS7
 interconnect, GPIO/UART/SPI/I2C controllers); EPS, TT&C, OBDH, and
 CAN/SpaceWire controllers in progress
 
----SpaceLab UFSC internship project---
+
